@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+  import Main from './Routers';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+
 
 class Index extends Component {
   render() {
     return (
       <div>
-        
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={<Main />} />
+
+          </Routes>
+        </BrowserRouter>
       </div>
-    )
+    );
   }
 }
 
-ReactDOM.render(<Index />, document.getElementById('index'));
-
+createRoot(document.getElementById('index')).render(<Index />); 
