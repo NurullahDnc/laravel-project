@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import Register from '../Register'
 
-//* Login sayfası
+//* Giris sayfası
 export default function Login() {
   return (
     <div className='login-register-container' >
@@ -12,11 +12,11 @@ export default function Login() {
 
         <div className="form-floating">
           <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
-          <label for="floatingInput">Email Adres</label>
+          <label htmlFor="floatingInput">Email Adres</label>
         </div>
         <div className="form-floating my-2">
           <input type="password" className="form-control" id="floatingPassword" placeholder="Sifre" />
-          <label for="floatingPassword">Sifre</label>
+          <label htmlFor="floatingPassword">Sifre</label>
         </div>
 
         <div className="checkbox mb-3">

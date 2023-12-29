@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+//gelen post isteklerine gore yonlendirme yapıyor
+Route::group([
+    'prefix'=>'auth'
+],function(){
+    Route::post('login',[\App\Http\Controllers\AuthController::class,'login']);
+    Route::post('register',[\App\Http\Controllers\AuthController::class,'register']);
+});
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
