@@ -1,20 +1,77 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
+import { values } from 'lodash'
 
-//*kayıt olma sayfası
+//*kayıt olma sayfası, formik-yup kutuphanesi kulandıldı
 export default function Register() {
 
-  const handleSubmit = () => {
-    alert("tıklandı")
-  }
+  //hataları kontol etme, email tek olacak
+  const [errors, setErrors] = useState([])
+  const [error, setError] = useState('')
 
+  const handleSubmit = (values) => {
+    axios.post('api/auth/register', { ...values })
+      .then((res) => {
+
+        //kosul giris oldumu, bilgileri localstore de saklayacaz
+        if (res.data.success) {
+          //kulanıcı bilgieri
+          const userData = {
+            id: res.data.id,
+            name: res.data.name,
+            email: res.data.email,
+            access_token: res.data.access_token
+
+          };
+          //toplu sekilde kulanmak icin
+          const appState = {
+            isLoggedIn: true,
+            user: userData
+          }
+          alert("basarılı")
+
+        } else {
+          alert("giris yapamadınız")
+          console.log(res.data)
+        }
+
+
+      })
+      .catch(error => {
+        //err'ları kontol edicez
+        if (error.response) {
+          let err = error.response.data;
+          setErrors(err.errors);
+          //alert(err.errors)
+        }
+        else if (error.request) {
+          let err = error.request;
+          setError(err);
+        }
+        else {
+          setError(error.message);
+
+        }
+      })
+  }
+  //object icerisinde values don foreach ile value arr ekle
+  let arr = [];
+  Object.values(errors).forEach(value => {
+    arr.push(value);
+  })
   return (
     <div className='login-register-container' >
       <form className='form-signin'>
         <img className="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57" />
         <h1 className="h3 mb-3 fw-normal">Hemen Kayıt ol</h1>
+
+        { // aynı e posta ile kayıt olunursa hata mesajı
+          arr.length != 0 && arr.map((item) => (<p>{item} </p>))
+        }
+        {error != '' && (<p>{item} </p>)}
         {/*formik= form'u gonderme kontol etme */}
         <Formik
           //belirtigimiz degerleri giricez
@@ -58,6 +115,7 @@ export default function Register() {
                   value={values.name}
                   onChange={handleChange('name')}
                   onBlur={handleBlur}
+                  id="name"
                 />
                 {(errors.name && touched.name) && <p>{errors.name} </p>}
 
@@ -69,6 +127,8 @@ export default function Register() {
                   placeholder="name@example.com"
                   value={values.email}
                   onChange={handleChange('email')}
+                  onBlur={handleBlur}
+                  id="email"
                 />
                 {(errors.email && touched.email) && <p>{errors.email} </p>}
 

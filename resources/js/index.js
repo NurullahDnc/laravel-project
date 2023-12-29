@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 
-
+//form sayfalarını router.js icerisinde imp etik buraya main adında 
 class Index extends Component {
   render() {
     return (

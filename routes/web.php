@@ -13,4 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //tüm veriler buraya gelecek, bunlar da index'i calıstırcak, gelen verileri indexblade goster
-Route::view('/{path?}', 'index')->where('path', '.+');
+
+Route::view('/{path?}', 'index')->where('path', '.*');
+
+
+// Route::view('/{path?}','index')->where('path','.+');
+// Route::view('/{path?}', 'index')->where('path', '.*');

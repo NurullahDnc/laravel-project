@@ -26,14 +26,15 @@ class AuthController extends Controller
         $user = $user->save();
 
         //giris islemi, oturum acma
-        $credentials = ['email'=>$request->email,'password'=>$request->password];
+        $credentials = ['email' => $request->email, 'password' => $request->password];
 
-        //gonderdigimiz bilgiler hatalı kabul etmezse
-        if(!Auth::attempt($credentials)){
+        if (!Auth::attempt($credentials)) {
             return response()->json([
-                'message'=>'Giriş Yapılamadı Bilgileri Kontrol Ediniz'
-            ],401);
+                'message' => 'Giriş Yapılamadı Bilgileri Kontrol Ediniz'
+            ], 401);
         }
+    
+    
         $user = $request->user();
 
         //kulancıyı hatırlama ozeligig
@@ -63,38 +64,53 @@ class AuthController extends Controller
  
     public function login(Request $request){
    //---------giris islemleri
-        $request->validate([
-            'email'=>'required|string|email',
-            'password'=>'required|string',
-            'remember_me'=>'boolean'
-        ]);
-        $credentials = request(['email','password']);
+    $request->validate([
+        'name'=>'required|string',
+        'email'=>'required|string|email|unique:users',
+        'password'=>'required|string|confirmed'
+    ]);
 
-        //basarısız, bilgiler hatalı ise
-        if(!Auth::attempt($credentials)){
-            return response()->json([
-                'message'=>'Bilgiler Hatalı Kontrol Ediniz'
-            ],401);
-        }
-        //kulancıyı hatırlama ozeligig
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        //true ise hatırlama tıklandı ise 1 hafta hatırla
-        if($request->remember_me){
-            $token->expires_at = Carbon::now()->addWeeks(1);
-        }
-        $token->save();
+    // Kullanıcıyı veritabanına kaydet
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => md5($request->password) // Şifreyi güvenli bir şekilde hashle
+    ]);
+
+    // Oturum açmaya çalış
+    $credentials = ['email' => $request->email, 'password' => $request->password];
+
+    if (!Auth::attempt($credentials)) {
         return response()->json([
-            'success'=>true,
-            'id'=>$user->id,
-            'name'=>$user->name,
-            'email'=>$user->email,
-            'access_token'=>$tokenResult->accessToken,
-            'token_type'=>'Bearer',
-            'expires_at'=>Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
-        ],201);
+            'message' => 'Giriş Yapılamadı Bilgileri Kontrol Ediniz'
+        ], 401);
     }
+
+    // Oturum açılmış kullanıcıyı al
+    $user = $request->user();
+
+    // Token oluştur ve ayarla
+    $tokenResult = $user->createToken('Personal Access');
+    $token = $tokenResult->token;
+
+    if ($request->remember_me) {
+        $token->expires_at = Carbon::now()->addWeeks(1);
+    }
+
+    $token->save();
+
+    // Yanıtı oluştur ve geri döndür
+    return response()->json([
+        'success' => true,
+        'id' => $user->id,
+        'name' => $user->name,
+        'email' => $user->email,
+        'access_token' => $tokenResult->accessToken,
+        'token_type' => 'Bearer',
+        'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString()
+    ], 201);
+}
+
 
     //---------Cıkıs islemleri
     public function logout(Request $request){
@@ -123,3 +139,22 @@ class AuthController extends Controller
     }
 
 }
+
+
+
+/*30 satır
+
+       // $user = new User([
+        //     'name'=>$request->name,
+        //     'email'=>$request->email,
+        //     'password'=>md5($request->password)
+        // ]);
+        // $user->save(); // Kullanıcıyı kaydedin
+        
+        // // Daha sonra bu kullanıcıyı almak için
+        // $createdUser = User::where('email', $request->email)->first();
+        
+
+
+*/
+
