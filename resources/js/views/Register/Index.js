@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, json, useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
 import { values } from 'lodash'
+import { inject, observer } from 'mobx-react'
 
 //*kayıt olma sayfası, formik-yup kutuphanesi kulandıldı
-export default function Register() {
+ function Register(props) {
+  //yonlendirme
+  const Navigate = useNavigate();
 
+
+  console.log(props);
   //hataları kontol etme, email tek olacak
   const [errors, setErrors] = useState([])
   const [error, setError] = useState('')
@@ -16,9 +21,9 @@ export default function Register() {
     axios.post('api/auth/register', { ...values })
       .then((res) => {
 
-        //kosul giris oldumu, bilgileri localstore de saklayacaz
+        //kosul giris oldumu,  bilgileri sifreleme ile localstore de saklayacaz
         if (res.data.success) {
-          //kulanıcı bilgieri
+          //kulanıcı bilgieri useData degiskeninde topluyoruz
           const userData = {
             id: res.data.id,
             name: res.data.name,
@@ -26,15 +31,19 @@ export default function Register() {
             access_token: res.data.access_token
 
           };
-          //toplu sekilde kulanmak icin
+          //toplu sekilde kulanmak icin degiskene atıyoruz
           const appState = {
             isLoggedIn: true,
             user: userData
           }
-          alert("basarılı")
+          //props icerisinde AuthStore icerisinde saveToken'e appstate gonderdik
+          props.AuthStore.saveToken(appState);
+          //giris sonrası anasayfaya gonderdik sonra
+          Navigate('/');
+          alert("kayıt basarılı")
 
         } else {
-          alert("giris yapamadınız")
+          alert("Kaydınız Olusturulmadı")
           console.log(res.data)
         }
 
@@ -71,7 +80,8 @@ export default function Register() {
         { // aynı e posta ile kayıt olunursa hata mesajı
           arr.length != 0 && arr.map((item) => (<p>{item} </p>))
         }
-        {error != '' && (<p>{item} </p>)}
+        {error != '' && (<p>{error} </p>)}
+        
         {/*formik= form'u gonderme kontol etme */}
         <Formik
           //belirtigimiz degerleri giricez
@@ -81,10 +91,10 @@ export default function Register() {
             password: '',
             password_confirmation: ''
           }}
-          //buttona tıklandıdıgında calısacak func, verileri gonderme, ozelikleri tanımlandı
+          //buttona tıklandıdıgında, form gonderildginde calısacak , ozelikleri tanımlandı
           onSubmit={handleSubmit}
           validationSchema={
-            //yup = formda kosul saglıyor, zorunlu - 8 karakter olacak
+            //yup = formda kosul saglıyor,, zorunlu - 8 karakter olacak
             Yup.object().shape({
               email: Yup
                 .string()
@@ -170,9 +180,15 @@ export default function Register() {
 
           )}
         </Formik>
-        <Link className='mt-3 d-block' to="/Login">Giris yap </Link>
+        <Link className='mt-3 d-block' to="/0">Giris yap </Link>
         <p className="mt-5 mb-3 text-muted">© 2017–2021</p>
       </form>
     </div>
   )
 }
+//AuthStore comps cagırdık, register metodun adı 
+export default inject("AuthStore")(observer(Register));
+
+
+//formik = form gonderme kontol etme
+//yup = formda kosul saglıyor, zorunlu - 8 karakter olacak

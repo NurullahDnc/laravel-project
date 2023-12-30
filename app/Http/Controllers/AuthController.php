@@ -1,5 +1,5 @@
 <?php
-//* kulanıcı islemleri giris cıkıs
+//* kulanıcı islemleri giris, cıkıs
 namespace App\Http\Controllers;
 
 //cagırma, erismek, kutuohanelere
@@ -62,8 +62,8 @@ class AuthController extends Controller
 
 
  
+    //---------giris islemleri
     public function login(Request $request){
-   //---------giris islemleri
     $request->validate([
         'name'=>'required|string',
         'email'=>'required|string|email|unique:users',
