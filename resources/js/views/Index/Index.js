@@ -11,4 +11,4 @@ const Index=(props)=> {
   )
 }
 
-export default inject("AuthStore")(observer(Index));ss
+export default inject("AuthStore")(observer(Index));

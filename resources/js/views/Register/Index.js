@@ -37,7 +37,7 @@ import { inject, observer } from 'mobx-react'
             user: userData
           }
           //props icerisinde AuthStore icerisinde saveToken'e appstate gonderdik
-          props.AuthStore.saveToken(appState);
+          props.AuthStore.saveToken(JSON.stringify(appState));
           //giris sonrası anasayfaya gonderdik sonra
           Navigate('/');
           alert("kayıt basarılı")
