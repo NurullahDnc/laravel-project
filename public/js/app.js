@@ -6491,6 +6491,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
+// import PrivateRoute from './PrivateRegister'
 
 /*sayfalar */
 
@@ -6828,27 +6829,25 @@ function Register(props) {
     setError = _useState4[1];
   var handleSubmit = function handleSubmit(values) {
     axios__WEBPACK_IMPORTED_MODULE_2___default().post('api/auth/register', _objectSpread({}, values)).then(function (res) {
-      //kosul giris oldumu,     bilgileri localstore de saklayacaz
+      //kosul giris oldumu,  bilgileri sifreleme ile localstore de saklayacaz
       if (res.data.success) {
-        //kulanıcı bilgieri useData atıyoruz
+        //kulanıcı bilgieri useData degiskeninde topluyoruz
         var userData = {
           id: res.data.id,
           name: res.data.name,
           email: res.data.email,
           access_token: res.data.access_token
         };
-        //toplu sekilde kulanmak icin
+        //toplu sekilde kulanmak icin degiskene atıyoruz
         var appState = {
           isLoggedIn: true,
           user: userData
         };
         //props icerisinde AuthStore icerisinde saveToken'e appstate gonderdik
-        props.AuthStore.saveToken(appState);
-        //anasayfaya gonderdik sonra
+        props.AuthStore.saveToken(JSON.stringify(appState));
+        //giris sonrası anasayfaya gonderdik sonra
         Navigate('/');
-        //sayfayı yeiledik
-        // location.reload();
-        alert("basarılı");
+        alert("kayıt basarılı");
       } else {
         alert("Kaydınız Olusturulmadı");
         console.log(res.data);
@@ -6902,11 +6901,11 @@ function Register(props) {
           password: '',
           password_confirmation: ''
         }
-        //buttona tıklandıdıgında calısacak func, form gonderildginde calısacak , ozelikleri tanımlandı
+        //buttona tıklandıdıgında, form gonderildginde calısacak , ozelikleri tanımlandı
         ,
         onSubmit: handleSubmit,
         validationSchema:
-        //yup = formda kosul saglıyor, zorunlu - 8 karakter olacak
+        //yup = formda kosul saglıyor,, zorunlu - 8 karakter olacak
         yup__WEBPACK_IMPORTED_MODULE_1__.object().shape({
           email: yup__WEBPACK_IMPORTED_MODULE_1__.string()
           //email formatında olacak olmaz ise, hata mesajı ver
@@ -6999,7 +6998,7 @@ function Register(props) {
         }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
         className: "mt-3 d-block",
-        to: "/Login",
+        to: "/0",
         children: "Giris yap "
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
         className: "mt-5 mb-3 text-muted",
