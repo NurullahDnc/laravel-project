@@ -180,7 +180,7 @@ import { inject, observer } from 'mobx-react'
 
           )}
         </Formik>
-        <Link className='mt-3 d-block' to="/0">Giris yap </Link>
+        <Link className='mt-3 d-block' to="/login">Giris yap </Link>
         <p className="mt-5 mb-3 text-muted">© 2017–2021</p>
       </form>
     </div>
