@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //gelen post isteklerine gore yonlendirme yapıyor
+//App\Http\Controllers\AuthController = buradaki dosya, func. baglanıyor,  API yonlendirme
 Route::group([
     'prefix'=>'auth'
 ],function(){
@@ -24,6 +25,19 @@ Route::group([
 });
 
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'middleware'=>['auth:api']
+],function(){
+    Route::post('/logout',[\App\Http\Controllers\AuthController::class,'logout']);
+    Route::post('/authenticate',[\App\Http\Controllers\AuthController::class,'authenticate']);
+    Route::resource('product',\App\Http\Controllers\api\product\indexController::class);
+    Route::resource('category',\App\Http\Controllers\api\category\indexController::class);
+    Route::resource('customer',\App\Http\Controllers\api\customer\indexController::class);
+    Route::resource('stock',\App\Http\Controllers\api\stock\indexController::class);
+    Route::resource('profile',\App\Http\Controllers\api\profile\indexController::class);
+    Route::post('/stock/get-customer',[\App\Http\Controllers\api\stock\indexController::class,'getCustomer']);
+    Route::group(['prefix'=>'home','namespace'=>'home'],function(){
+        Route::post('/',[\App\Http\Controllers\api\home\indexController::class,'index']);
+    });
 });
+

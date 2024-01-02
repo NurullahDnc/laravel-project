@@ -107,8 +107,7 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
-       
-
+    //kulancı giris basalırılı sekilde yapmıs ise
     public function authenticate(Request $request){
         $user = [];
         if(Auth::check()){

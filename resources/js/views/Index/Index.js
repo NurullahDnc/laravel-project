@@ -1,25 +1,21 @@
 import React from 'react'
 import { inject, observer } from 'mobx-react';
-import { useNavigate } from 'react-router-dom';
+import Layout from '../../Components/Layout/Front.layout';
 
-const Index=(props)=> {
-  const Navigate = useNavigate();
+const Index = (props) => {
+  console.log("merhaba yonlendirldi")
+  // const Navigate = useNavigate();
   props.AuthStore.getToken();
-  console.log(JSON.parse(props.AuthStore.appState))  
+  // console.log(JSON.parse(props.AuthStore.appState))
 
-  const logout =()=>{
-    //removeToken metodunu cagır, login sayfasına gonder,  "cıkıs yapma"
-    props.AuthStore.removeToken();
-    Navigate('/login');
-    console.log("tıklandı")
-  }
+ 
   return (
-    <div>
-      burası index sayfası 
-      <button onClick={logout}>
-        cıkıs yap
-      </button>
-    </div>
+    <Layout>
+      <div>
+        burası index sayfası
+      
+      </div>
+    </Layout>
   )
 }
 

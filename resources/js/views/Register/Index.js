@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react'
 //*kayıt olma sayfası, formik-yup kutuphanesi kulandıldı
  function Register(props) {
   //yonlendirme
-  const Navigate = useNavigate();
+  // const Navigate = useNavigate();
 
 
   console.log(props);
@@ -37,9 +37,10 @@ import { inject, observer } from 'mobx-react'
             user: userData
           }
           //props icerisinde AuthStore icerisinde saveToken'e appstate gonderdik
-          props.AuthStore.saveToken(JSON.stringify(appState));
+          props.AuthStore.saveToken(appState);
           //giris sonrası anasayfaya gonderdik sonra
-          Navigate('/');
+          // Navigate('/');
+          props.history.push('/');
           alert("kayıt basarılı")
 
         } else {

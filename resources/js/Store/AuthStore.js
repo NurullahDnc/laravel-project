@@ -44,8 +44,10 @@ class AuthStore{
         }
     }
 
+    //localstore de ki kulanıcı bilgisiini kaldrııyor.
     removeToken =()=>{
         localStorage.removeItem("appState");
+        
         this.appState = null;
     }
     
