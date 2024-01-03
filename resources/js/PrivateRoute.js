@@ -1,5 +1,5 @@
  
-//? anasayfada giris yapımamıs ise giris sayfasına at
+//! anasayfada giris yapımamıs ise giris sayfasına at
 
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';

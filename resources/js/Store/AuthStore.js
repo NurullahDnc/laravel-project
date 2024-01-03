@@ -2,6 +2,8 @@ import {observable, action, makeAutoObservable} from 'mobx';
 import jwt_decode from 'jwt-decode';
 import CryptoJS from 'crypto-js';
 import jwt_encode from 'jwt-encode';
+
+//! kulanıcı localstore ye kaydetme, kaldırma 
 class AuthStore{
 
     appState = null;

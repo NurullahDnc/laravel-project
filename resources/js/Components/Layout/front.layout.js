@@ -9,6 +9,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+//! layout, anasayfa
+
 const Layout = (props) => {
     const history = useHistory();
     const [user, setUser] = useState({});
@@ -33,9 +35,8 @@ const Layout = (props) => {
 
         })
             .catch((err) => {
-                console.log(err, "err")
+                // console.log(err)
                 // history.push("/login")
-                console.log(props.AuthStore.appState.user);
             })
     }, [])
 
@@ -57,16 +58,16 @@ const Layout = (props) => {
     return (
         <div>
 
-            <Navbar collapseOnSelect expand="lg" style={{fontSize:"1.4rem", backgroun: "dark"  }} className="bg-body-tertiary py-2 ">
+            <Navbar collapseOnSelect expand="lg" style={{fontSize:"1.3rem", backgroun: "dark"  }} className="bg-body-tertiary py-2 ">
                 <Container>
-                    <Navbar.Brand href="#home" style={{fontSize:"2rem", marginRight:"2rem"}}>Stoks</Navbar.Brand>
+                    <Navbar.Brand href="/" style={{fontSize:"1.7rem", marginRight:"2rem"}}>Stoks</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="/">Yonetim Paneli</Nav.Link>
-                            <Nav.Link href="/Product">Ürünler</Nav.Link>
+                            <Nav.Link href="/urunler">Ürünler</Nav.Link>
                         </Nav>
-                        <NavDropdown title="Nurullah Dinç" id="collapsible-nav-dropdown">
+                        <NavDropdown title={props.AuthStore.appState.user.name} style={{fontSize:"1.2rem", backgroun: "dark"  }} id="collapsible-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Profil Duzenle</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Sifre Değistir</NavDropdown.Item>
                             <NavDropdown.Divider />

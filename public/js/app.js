@@ -8149,6 +8149,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+//! layout, anasayfa
+
 
 var Layout = function Layout(props) {
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_3__.useHistory)();
@@ -8178,9 +8180,8 @@ var Layout = function Layout(props) {
       setUser(res.data.user);
       setisLoggedIn(res.data.isLoggedIn);
     })["catch"](function (err) {
-      console.log(err, "err");
+      // console.log(err)
       // history.push("/login")
-      console.log(props.AuthStore.appState.user);
     });
   }, []);
 
@@ -8204,15 +8205,15 @@ var Layout = function Layout(props) {
       collapseOnSelect: true,
       expand: "lg",
       style: {
-        fontSize: "1.4rem",
+        fontSize: "1.3rem",
         backgroun: "dark"
       },
       className: "bg-body-tertiary py-2 ",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_bootstrap_Container__WEBPACK_IMPORTED_MODULE_5__["default"], {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap_Navbar__WEBPACK_IMPORTED_MODULE_4__["default"].Brand, {
-          href: "#home",
+          href: "/",
           style: {
-            fontSize: "2rem",
+            fontSize: "1.7rem",
             marginRight: "2rem"
           },
           children: "Stoks"
@@ -8226,11 +8227,15 @@ var Layout = function Layout(props) {
               href: "/",
               children: "Yonetim Paneli"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap_Nav__WEBPACK_IMPORTED_MODULE_6__["default"].Link, {
-              href: "/Product",
+              href: "/urunler",
               children: "\xDCr\xFCnler"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(react_bootstrap_NavDropdown__WEBPACK_IMPORTED_MODULE_7__["default"], {
-            title: "Nurullah Din\xE7",
+            title: props.AuthStore.appState.user.name,
+            style: {
+              fontSize: "1.2rem",
+              backgroun: "dark"
+            },
             id: "collapsible-nav-dropdown",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_bootstrap_NavDropdown__WEBPACK_IMPORTED_MODULE_7__["default"].Item, {
               href: "#action/3.1",
@@ -8350,7 +8355,7 @@ function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" 
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-//? anasayfada giris yapımamıs ise giris sayfasına at
+//! anasayfada giris yapımamıs ise giris sayfasına at
 
 
 
@@ -8400,12 +8405,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _PrivateRoute__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PrivateRoute */ "./resources/js/PrivateRoute.js");
 /* harmony import */ var _Views_Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Views/Index */ "./resources/js/Views/Index/index.js");
 /* harmony import */ var _Views_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Views/Login */ "./resources/js/Views/Login/index.js");
 /* harmony import */ var _Views_Register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Views/Register */ "./resources/js/Views/Register/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _views_Product_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/Product/index */ "./resources/js/views/Product/index.js");
+/* harmony import */ var _views_Product_create__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/Product/create */ "./resources/js/views/Product/create.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -8413,20 +8420,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/*urunler */
+
+
 
 
 var Main = function Main() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_PrivateRoute__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Switch, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PrivateRoute__WEBPACK_IMPORTED_MODULE_1__["default"], {
       exact: true,
       path: "/",
       component: _Views_Index__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
       path: "/login",
       component: _Views_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
       path: "/register",
       component: _Views_Register__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PrivateRoute__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      exact: true,
+      path: "/urunler",
+      component: _views_Product_index__WEBPACK_IMPORTED_MODULE_5__["default"]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_PrivateRoute__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      path: "/urunler/ekle",
+      component: _views_Product_create__WEBPACK_IMPORTED_MODULE_6__["default"]
     })]
   });
 };
@@ -8462,6 +8479,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 
 
 
+
+//! kulanıcı localstore ye kaydetme, kaldırma 
 var AuthStore = /*#__PURE__*/_createClass(function AuthStore() {
   var _this = this;
   _classCallCheck(this, AuthStore);
@@ -9074,6 +9093,85 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/views/Product/create.js":
+/*!**********************************************!*\
+  !*** ./resources/js/views/Product/create.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
+/* harmony import */ var _Components_Layout_Front_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Components/Layout/Front.layout */ "./resources/js/Components/Layout/Front.layout.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var Create = function Create(props) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Components_Layout_Front_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: "buras\u0131 Product create"
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_3__.inject)("AuthStore")((0,mobx_react__WEBPACK_IMPORTED_MODULE_3__.observer)(Create)));
+
+/***/ }),
+
+/***/ "./resources/js/views/Product/index.js":
+/*!*********************************************!*\
+  !*** ./resources/js/views/Product/index.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
+/* harmony import */ var _Components_Layout_Front_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Components/Layout/Front.layout */ "./resources/js/Components/Layout/Front.layout.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+var Index = function Index(props) {
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    axios.get("api/Product", {
+      headers: {
+        Authorization: 'Bearer ' + props.AuthStore.appState.user.access_token
+      }
+    }).then(function (res) {
+      console.log(res);
+    })["catch"](function (err) {
+      console.log(err, "err");
+    });
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Components_Layout_Front_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+        onClick: function onClick() {
+          return props.history.push("/urunler/ekle");
+        },
+        children: "yeni urun ekle"
+      }), "buras\u0131 ProductIndex"]
+    })
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,mobx_react__WEBPACK_IMPORTED_MODULE_3__.inject)("AuthStore")((0,mobx_react__WEBPACK_IMPORTED_MODULE_3__.observer)(Index)));
 
 /***/ }),
 
